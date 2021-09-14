@@ -2,6 +2,17 @@
 
 using namespace std;
 
+void coutp(unsigned int x)
+{
+	int n = sizeof(int) * 8;
+	unsigned maska = (1 << (n - 1));
+	for (int i = 1; i <= n; i++)
+	{
+		cout << ((x & maska) >> (n - i));
+		maska = maska >> 1;
+	}
+}
+
 void exer1() {
 
 	cout << "Упражнение 1" << endl;
@@ -14,14 +25,25 @@ void exer1() {
 
 	const int x = 0x5555; // 0101010101010101
 	int y = 0xAAAA;      //  1010101010101010
+	cout << "Число: ";
+	coutp(x);
+	cout <<endl << "Маска: ";
+	coutp(y);
 	y = y | x;
-	cout << y << endl;
+	cout <<"\nРезультат: "<<endl<< y << endl<< "       ";
+	coutp(y);
+
 }
 void exer2(unsigned short int x)
 {
+	cout << "Изначальное число: \n";
+	coutp(x);
     x = x & 0x7F0F;
 	
-	cout << hex << x;
+	cout <<endl<< hex << x;
+	cout << endl;
+	cout << "Результат: \n";
+	coutp(x);
 
 	/*  обнулить
 		заданные в задании биты исходного значения переменной, используя
@@ -31,26 +53,41 @@ void exer2(unsigned short int x)
 
 void exer3(unsigned long int y)  // умножаем на 32 // Число вводим в 16ой 
 {
-	
+	cout << "Изначальное число: \n";
+	coutp(y);
 	y = y << 5;
-	cout << hex << y;
+	cout <<endl<< hex << y << endl;
+	cout << "Результат: \n";
+	coutp(y);
 }
 
 void exer4(unsigned long int y)  // делим на 32
 {
-	
+	cout << "Изначальное число: \n";
+	coutp(y);
 	y = y >> 5;
-	cout << hex << y;
+	cout <<endl << hex << y << endl;
+	cout << "Результат: \n";
+	coutp(y);
 }
 
 void exer5(unsigned long int x, int n)
 {
+	cout << "Число: ";
+	coutp(x);
+	cout << endl;
 	//нужно обнулить n - ый бит в введенном числе.
-	
-	unsigned long int y = 1;
-	y = y << n;
+	unsigned long long int y = 0x10000000;
+	y = ~ (y >> (28 - n)); // n;
+	cout << "Маска: ";
+	coutp(y);
+	cout << endl;
 	x = x & ~y;
+	cout << "Результат в dec: ";
 	cout << hex << x;
+	cout << endl;
+	cout << "Результат: ";
+	coutp(x);
 	
 }
 
